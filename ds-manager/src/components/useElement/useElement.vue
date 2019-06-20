@@ -1,12 +1,10 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+    <div>我是useElement.vue</div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+
 }
 </script>
 
