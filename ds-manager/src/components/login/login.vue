@@ -40,9 +40,23 @@ export default {
       login(){
           this.$refs.ruleForm.validate(valid=>{
               if(valid){
-                  alert('合法')
+                  this.$http({
+                   method:'POST',
+                   url:'http://localhost:8888/api/private/v1/login',
+                   data:this.userObj
+                  }).then(res=>{
+                    let {data,meta} = res.data
+                    if(meta.status ===200){
+                      window.localStorage.setItem('token',data.token)//保存登录令牌
+                      this.$message(meta.msg);
+                      this.$router.push('/')
+                    }else{
+                      this.$message(meta.msg)
+                    }
+                  }).catch(err=>console.log(err)
+                  )
               }else{
-                  alert('不合法')
+                   this.$message('请填写完整')
               }
           })
       }
