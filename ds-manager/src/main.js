@@ -6,10 +6,10 @@ import '../node_modules/element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import axios from 'axios'
-//@ 表示src目录
+// @ 表示src目录
 import './assets/css/index.css'
 Vue.config.productionTip = false
-Vue.use( ElementUI)
+Vue.use(ElementUI)
 Vue.prototype.$http = axios
 /* eslint-disable no-new */
 new Vue({
