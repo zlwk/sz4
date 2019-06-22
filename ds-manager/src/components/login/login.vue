@@ -20,48 +20,54 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       userObj: {
         username: '',
         password: ''
       },
-      rules:{
-          username:[
-              { required: true, message: '请输入用户名', trigger: 'blur' },
-          ],
-          password:[
-              { required: true, message: '请输入密码', trigger: 'blur' },
-          ]
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
       }
-    };
+    }
   },
-  methods:{
-      login(){
-          this.$refs.ruleForm.validate(valid=>{
-              if(valid){
-                  this.$http({
-                   method:'POST',
-                   url:'http://localhost:8888/api/private/v1/login',
-                   data:this.userObj
-                  }).then(res=>{
-                    let {data,meta} = res.data
-                    if(meta.status ===200){
-                      window.localStorage.setItem('token',data.token)//保存登录令牌
-                      this.$message(meta.msg);
-                      this.$router.push('/')
-                    }else{
-                      this.$message(meta.msg)
-                    }
-                  }).catch(err=>console.log(err)
-                  )
-              }else{
-                   this.$message('请填写完整')
-              }
+  methods: {
+    login () {
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          this.$http({
+            method: 'POST',
+            url: 'http://localhost:8888/api/private/v1/login',
+            data: this.userObj
+          }).then(res => {
+            let {data, meta} = res.data
+            if (meta.status === 200) {
+              window.localStorage.setItem('token', data.token)// 保存登录令牌
+              this.$message({
+                message:meta.msg,
+                type:'success'
+              })
+              this.$router.push('/')
+            } else {
+              this.$message.error(meta.msg)
+            }
+          }).catch(err => console.log(err)
+          )
+        } else {
+          this.$message({
+            message:'请填写完整',
+            type:'warning'
           })
-      }
+        }
+      })
+    }
   }
-};
+}
 </script>
 
 <style>
